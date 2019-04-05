@@ -1,0 +1,13 @@
+{% if app.user != NULL %}
+    {% if app.user.role == 'instructor' %}
+        {{ include('templates/instructor_nav.html.twig') }}
+    {% elseif app.user.role == 'member' %}
+        {{ include('templates/member_nav.html.twig') }}
+    {% elseif app.user.role == 'admin' %}
+        {{ include('templates/admin_nav.html.twig') }}
+    {% else %}
+        {{ include('templates/visitor_nav.html.twig') }}
+    {% endif %}
+{% else %}
+    {{ include('templates/visitor_nav.html.twig') }}
+{% endif %}

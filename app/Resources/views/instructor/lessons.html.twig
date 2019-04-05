@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {{ include('templates/header.html.twig') }}
+    {% for training in trainings %}
+        <H2 class="panel-title">{{ training.name }}</H2>
+        <div class="">
+            <table class="table">
+                <tr>
+                    <th><b>Time</b></th>
+                    <th><b>Date</b></th>
+                    <th><b>Location</b></th>
+                    <th><b>Maximum Members</b></th>
+                    <th><b>Instructor</b></th>
+                </tr>
+                {% for lesson in training.lessons %}
+                    {#{% if lesson.trainingId.id == training.id %}#}
+                        <tr>
+                            <th>{{ lesson.time|date('H:i') }}</th>
+                            <th>{{ lesson.date|date('d-m-Y') }}</th>
+                            <th>{{ lesson.location }}</th>
+                            <th>{{ lesson.maxMembers }}</th>
+                            <th>{{ lesson.instructorId.getFullName() }}</th>
+                            <th><a href="{{ path('edit_lesson', {'id':lesson.id}) }}"><button class="btn btn-outline-warning"><b>edit</b></button></a></th>
+                            <th><a href="{{ path('delete_lesson', {'id':lesson.id}) }}"><button class="btn btn-outline-danger"><b>remove</b></button></a></th>
+                        </tr>
+                    {#{% endif %}#}
+                {% endfor %}
+            </table>
+        {% endfor %}
+        <a href="{{ path('homepage') }}"><button class="btn btn-outline-secondary btn-lg"><b>BACK</b></button></a>
+        <a href="{{ path('new_lesson') }}"><button class="btn btn-outline-success btn-lg"><b>add new</b></button></a>
+    </div>
+{% endblock %}

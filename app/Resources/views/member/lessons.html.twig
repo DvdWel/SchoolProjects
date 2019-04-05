@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {{ include('templates/header.html.twig') }}
+
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    {% for training in trainings %}
+        <H2 class="panel-title">{{ training.name }}</H2>
+        <div class="">
+            <table class="table">
+                <tr>
+                    <th><b>Time</b></th>
+                    <th><b>Date</b></th>
+                    <th><b>Location</b></th>
+                    <th><b>Maximum Members</b></th>
+                    <th><b>Instructor</b></th>
+                </tr>
+                {% for lesson in training.lessons %}
+                        <tr>
+                            <th>{{ lesson.time|date('H:i') }}</th>
+                            <th>{{ lesson.date|date('d-m-Y') }}</th>
+                            <th>{{ lesson.location }}</th>
+                            <th>{{ lesson.maxMembers }}</th>
+                            <th>{{ lesson.instructorId.getFullName() }}</th>
+                        {% if lesson.registrations|keys is empty %}
+                            <th><a href="{{ path('lesson_register', {'lessonId':lesson.id}) }}"><button class="btn btn-outline-success">schrijf in!</button></a></th>
+                        {% else %}
+                            {% set registered = false %}
+                            {% for registration in lesson.registrations if registered == false %}
+                                {% if registration.memberId == app.user %}
+                                    <th><a href="{{ path('lesson_unregister', {'registrationId':registration.id}) }}"><button class="btn btn-outline-warning">uitschrijven</button></a></th>
+                                    {% set registered = true %}
+                                {% endif %}
+                            {% endfor %}
+                            {% if registered == false %}
+                                <th><a href="{{ path('lesson_register', {'lessonId':lesson.id}) }}"><button class="btn btn-outline-success">schrijf in!</button></a></th>
+                            {% endif %}
+                        {% endif %}
+                        </tr>
+                {% endfor %}
+            </table>
+        {% endfor %}
+        <a href="{{ path('homepage') }}"><button class="btn btn-outline-secondary btn-lg"><b>BACK</b></button></a>
+    </div>
+{% endblock %}

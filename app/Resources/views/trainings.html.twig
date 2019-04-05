@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {{ include('templates/header.html.twig') }}
+    <table class="table">
+        <tr>
+            <th><b>Name</b></th>
+            <th><b>Description</b></th>
+            <th><b>Duration</b></th>
+            <th><b>Cost*</b></th>
+        </tr>
+        {% for training in trainings  %}
+            <tr>
+                <th>{{ training.name }}</th>
+                <th>{{ training.description }}</th>
+                <th>{{ training.duration }}</th>
+                <th><span  class="glyphicon-euro">&euro; </span>{{ training.cost }}</th>
+                <th><a href="{{ path('edit_training', {'id':training.id}) }}"><button class="btn btn-outline-warning"><b>edit</b></button></a></th>
+                <th><a href="{{ path('delete_training', {'id':training.id}) }}"><button class="btn btn-outline-danger"><b>remove</b></button></a></th>
+            </tr>
+        {% endfor %}
+    </table>
+    <a href="{{ path('homepage') }}"><button class="btn btn-outline-secondary btn-lg"><b>BACK</b></button></a>
+    <a href="{{ path('new_training') }}"><button class="btn btn-outline-success btn-lg"><b>add new</b></button></a>
+{% endblock %}
