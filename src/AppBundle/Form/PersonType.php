@@ -55,17 +55,7 @@ class PersonType extends AbstractType
                     'admin' => 'admin',
                 ]
             ])
-            ->add('hiring_date', DateType::class, ['label' => 'Hiring date (instructor) *',
-                'format' => 'dd-MM-yyyy',
-                'widget' => 'choice',
-                'placeholder' => [
-                    'day' => 'Day', 'month' => 'Month', 'year' => 'Year'
-                ],
-                'years' => range(1889,2019)
-            ])
-            ->add('salary', MoneyType::class, ['label' => 'Salary (instructor) *',
-                    'group' => 'instructor'
-                ])
+
             ->add('street', TextType::class, ['label' => 'Street (member) *'])
             ->add('postalcode', TextType::class, ['label' => 'Postal code (member) *'])
             ->add('place', TextType::class, ['label' => 'Place (member) *'])

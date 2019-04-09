@@ -34,6 +34,18 @@ class AdminController extends Controller{
 
         $form = $this->createForm(PersonType::class);
 
+        $form->add('hiring_date', DateType::class, ['label' => 'Hiring date*',
+            'format' => 'dd-MM-yyyy',
+            'widget' => 'choice',
+            'placeholder' => [
+                'day' => 'Day', 'month' => 'Month', 'year' => 'Year'
+            ],
+            'years' => range(1889,2019)
+        ])
+            ->add('salary', MoneyType::class, ['label' => 'Salary*'
+            ])
+            ->add('submit', SubmitType::class);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -50,7 +62,7 @@ class AdminController extends Controller{
             return $this->redirectToRoute('homepage');
         }
 
-        return $this->render('new.html.twig', [
+        return $this->render('new_instructor.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -75,7 +87,7 @@ class AdminController extends Controller{
              return $this->redirectToRoute('training');
         }
 
-        return $this->render('new.html.twig', [
+        return $this->render('new_instructor.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -100,7 +112,7 @@ class AdminController extends Controller{
              return $this->redirectToRoute('training');
         }
 
-        return $this->render('new.html.twig', [
+        return $this->render('new_instructor.html.twig', [
             'form' => $form->createView(),
         ]);
     }

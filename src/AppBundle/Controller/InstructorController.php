@@ -48,7 +48,7 @@ class InstructorController extends Controller {
             return $this->redirectToRoute('lessons');
         }
 
-        return $this->render('new.html.twig', [
+        return $this->render('new_instructor.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -76,7 +76,7 @@ class InstructorController extends Controller {
             return $this->redirectToRoute('lessons');
         }
 
-        return $this->render('new.html.twig', [
+        return $this->render('new_instructor.html.twig', [
             'form' => $form->createView(),
         ]);
     }
